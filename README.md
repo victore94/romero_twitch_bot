@@ -1,1 +1,1 @@
-# romero_twitch_bot
+# twitch_bot
