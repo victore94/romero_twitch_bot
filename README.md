@@ -6,8 +6,8 @@ I love gaming, I've been gaming for years now; my entire life. From those days w
 
 # Thanks for using my bot, I appreciate you <3
 
-some of the commands you can execute and what they do
+# some of the commands you can execute and what they do
 
-# !game : will show the member in that what game you're currently playing
-# '!specs': Will show the chat what the specifications of your computer is 
-# '!love': Will spam chat with an emote 
+!game : will show the member in that what game you're currently playing
+!specs': Will show the chat what the specifications of your computer is 
+!love': Will spam chat with an emote 
