@@ -1,5 +1,6 @@
+let jokes = require('./jokes')
+let min = 60000
 
-//=============================================
 const tmi = require('tmi.js');
 require('dotenv').config();
 
@@ -13,36 +14,34 @@ const opts = {
   ]
 };
 
-
 const client = new tmi.client(opts);
-
 
 client.on('message', onMessageHandler);
 client.on('connected', onConnectedHandler);
 
-const channelName = process.env.CHANNEL_NAME
-
 client.connect();
 
-
 function onMessageHandler(target, context, msg, self) {
-  console.log(target)
-  console.log(context)
-  console.log(msg)
-  console.log(self)
-  if (self) { return; }
 
+  if (self) { return; }
+  const user = context.username
   const commandName = msg.trim();
 
   switch (commandName) {
-    case '!game':
-      client.action(channelName, `Hi @${user['display-name']}, Ohwise1 is playing Fortnite!`)
+    case '!hello':
+      client.say(target, `Hello ${user} how are you today? Thanks for tuning into Ohwise1's stream!`)
       break;
     case '!specs':
-      client.action(channelName, `GTX 2080 || 16GB RAM || 144fps 1440p Monitor`)
+      console.log(`* Executed ${commandName} command`);
+      client.say(target, `GTX 2080 || 32GB RAM || 144fps 1440p Monitor || AMD Ryzen 7 2700X CPU`)
+      console.log(`* Executed ${commandName} command`);
       break;
     case '!love':
-      client.action(channelName, `BisexualPride BisexualPride BisexualPride BisexualPride`)
+      client.say(target, `GayPride BisexualPride `)
+      break;
+    case '!joke':
+      let joke = jokes[Math.floor(Math.random() * jokes.length)];
+      client.say(target, joke);
       break;
     default:
       console.log(`* Unknown command ${commandName}`);
@@ -50,64 +49,23 @@ function onMessageHandler(target, context, msg, self) {
 }
 
 
-
-
-// client.on('chat', (channel, user, msg, self) => {
-//   const commandName = msg.trim();
-//   if (self) return;
-//   if (commandName === '!user') {
-//     client.say('ohwise', `@${user['display-name']} Hello`)
-//   }
-// })
-
-
+setInterval(() => {
+  client.say('ohwise1', `If you're enjoying the stream don't forget to follow!`)
+}, min * 10)
 
 setInterval(() => {
-  client.say('ohwise1', 'If you are enjoying the steam dont forget to leave a follow!')
-}, 60000)
-
+  client.say('ohwise1',
+    `Try some of these commands:
+  _______________________________________
+  !hello,
+  !love,
+  !specs,
+  !joke
+  _______________________________________
+  `
+  )
+}, min * 5)
 
 function onConnectedHandler(addr, port) {
   console.log(`* Connected to ${addr}:${port}`);
-  client.action('ohwise1', 'Hello, ohwise1_bot is now connected')
-
 }
-      // const tmi = require('tmi.js')
-
-      // const options = {
-      //   options: {
-      //     debug: true,
-      //   },
-      //   connection: {
-      //     cluster: 'aws',
-      //     reconnect: 'true'
-      //   },
-      //   identity: {
-      //     username: 'ohwise1_bot',
-      //     password: 'oauth:m3k4xepefbcifojwpebwbjws3m1jx8'
-      //   },
-      //   channel: ['ohwise1']
-      // }
-      // const client = new tmi.client(options)
-
-      // client.connect()
-
-      // client.on('connected', (address, port) => {
-      //   client.action('ohwise1', 'Hello, ohwise1_bot is now connected')
-      // });
-
-      // client.on('chat', (channel, user, message, self) => {
-      //   if (message === '!game') {
-      //     console.log(channel)
-      //     console.log(user)
-      //     console.log(self)
-      //     client.action('ohwise1', 'testing test test')
-      //   }
-      // });
-
-
-      // client.on('chat', (channel, user, message, self) => {
-      //   if (message === '!game') {
-      //     client.action('ohwise1', 'ohwise1 is playing fortnite')
-      //   }
-      // })
